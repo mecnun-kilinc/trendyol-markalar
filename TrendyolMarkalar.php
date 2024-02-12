@@ -23,28 +23,43 @@
 	 curl_close($ch);		
  
 		
-	$addBrand = "";
+	 $addBrand = "";
+
+
+	 //  $addBrand .= "INSERT INTO TABLO_ADI SET id = idVar, name = nameVar";
 	
-	foreach($results->brands as $result) {
-		 
-    
-    echo $result->name . "<hr />";
-	
-	
+     $total = count($results->brands);
+     
+	 $i = 0;
+	 
+	 foreach($results->brands as $result) {
+
+   // Markaları veri tabanına'a ekleme işlemini buradan yapabilirsiniz ama aşırı istek atacağı için sistemi yorar. 
+   // Foreach döngüsü ile sorgularınızı değişkene alın, foreach döngüsü işlemini tamamlandıktan sonra toplu olarak insert işlemini yapın.
+   // Aklınızda bulunsun çalıştırdığınız her sorgu bir bağlantı açacağı için işlem sonunda bağlantıyı kapatın  
+		  
+		  /*
+		  $addBrand .= "INSERT INTO TABLO_ADI SET id = '" . $result->id . "', name = '" . $result->name . "',<br>";
+		   if(++$i === $total) {
+		   $addBrand .= "INSERT INTO TABLO_ADI SET id = '" . $result->id . "', name = '" . $result->name . "';<br>"; 
+		 }
+		 */
+
 	}
  
-	     
+    // Database toplu halde insert işlemi burada yapabilirsiniz
+	// $this->db->query($addBrand);  
+	
 	     $page++;
  
 		 if (!empty($results->brands)) {
 			 
-             if ($page == 2) {
-			 // Çok fazla marka olduğu için burada işlemi sonlandırıyorum.
-			 echo "<h1>Sayfa " . $page . "</h1>";
-			 die;	 
+             if ($page > 2) {
+				 
+			  // Çok fazla marka olduğu için burada işlemi sonlandırıyorum.
+			  die;	 
 			 
 			 }
-			 
 			 
 			return  TrendyolMarkalar(1, $page);
 			 
